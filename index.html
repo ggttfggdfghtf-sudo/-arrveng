@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Разбор: старт блога</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#F3F5FA; --bg2:#E6EBF5; --card:#FFFFFF; --ink:#1C2233; --ink2:#5B6479; --line:#D9DFEC;
+  --coral:#3F5FC4; --coral-soft:#E3E9FA; --rose:#9C8BE0; --peach:#B8C4EA; --on-coral:#fff;
+  --sun1:#FFE2EC; --sun2:#8FA6EE; --sun3:#2B3E8F; --shadow:0 18px 40px -26px rgba(40,60,140,.4);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11141C; --bg2:#181C27; --card:#1F2433; --ink:#ECEFF7; --ink2:#AAB2C8; --line:#2E3550;
+  --coral:#8EA6FF; --coral-soft:#232C4A; --rose:#B8A9F5; --peach:#4A5785; --on-coral:#11141C;
+  --sun1:#E9C3D3; --sun2:#5F78D6; --sun3:#1C2A66; --shadow:0 18px 40px -26px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11141C; --bg2:#181C27; --card:#1F2433; --ink:#ECEFF7; --ink2:#AAB2C8; --line:#2E3550;
+  --coral:#8EA6FF; --coral-soft:#232C4A; --rose:#B8A9F5; --peach:#4A5785; --on-coral:#11141C;
+  --sun1:#E9C3D3; --sun2:#5F78D6; --sun3:#1C2A66; --shadow:0 18px 40px -26px rgba(0,0,0,.7); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding-inline:20px;padding-block:0 80px}
+h1,h2,h3{font-family:'Lora',Georgia,serif;font-weight:600;letter-spacing:-.01em;text-wrap:balance;margin:0}
+em{font-family:'Lora',Georgia,serif;font-style:italic;font-weight:500;color:var(--coral)}
+.label{font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--coral)}
+.hero{position:relative;padding-block:72px 48px;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(40px,7vw,72px);line-height:1.04;margin-top:14px}
+.hero p{color:var(--ink2);font-size:18px;max-width:46ch;margin:20px 0 0}
+.sun{aspect-ratio:1;max-width:100%;width:340px;justify-self:center;border-radius:50%;background:radial-gradient(circle at 50% 62%,var(--sun1) 0%,var(--sun2) 48%,var(--sun3) 78%,transparent 79%);position:relative}
+.sun::after{content:"подарок от команды Маши ✦";position:absolute;left:-10px;bottom:6%;background:var(--card);color:var(--coral);font-family:'Lora',serif;font-style:italic;font-size:17px;padding:12px 18px;border-radius:6px;box-shadow:var(--shadow);transform:rotate(-5deg)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-inline:-20px;padding:10px 20px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{display:inline-block;color:var(--ink2);text-decoration:none;font-size:14px;font-weight:600;padding:6px 12px;border-radius:999px}
+nav a:hover{background:var(--coral-soft);color:var(--coral)}
+section{padding-top:64px;scroll-margin-top:60px}
+section>h2{font-size:clamp(28px,4.4vw,42px);line-height:1.15;margin-top:10px}
+section>.lead{color:var(--ink2);max-width:62ch;margin:14px 0 0}
+.grid{display:grid;gap:16px;margin-top:28px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow);min-width:0}
+.card h3{font-size:22px;margin-top:14px;line-height:1.25}
+.card p{margin:8px 0 0;color:var(--ink2);font-size:16px}
+.card.hot{background:var(--coral);border-color:var(--coral)}
+.card.hot h3,.card.hot p,.card.hot .pin,.card.hot li{color:var(--on-coral)}
+.card.hot .label,.card.hot .big{color:var(--on-coral)}
+.card.hot .ic{background:color-mix(in srgb,var(--on-coral) 22%,transparent);color:var(--on-coral)}
+.ic{width:52px;height:52px;border-radius:16px;background:var(--coral-soft);color:var(--coral);display:flex;align-items:center;justify-content:center}
+.ic svg{width:28px;height:28px}
+.big{font-family:'Lora',serif;font-size:44px;line-height:1;color:var(--coral);font-variant-numeric:tabular-nums}
+.note{margin-top:22px;padding:18px 22px;border-left:3px solid var(--coral);background:var(--bg2);border-radius:0 14px 14px 0;color:var(--ink2)}
+.pin{font-size:16px;line-height:1.7;white-space:pre-line;color:var(--ink)}
+.ideas ol{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px;counter-reset:i}
+.ideas li{counter-increment:i;display:grid;grid-template-columns:34px 1fr;gap:8px;font-size:15.5px;line-height:1.45}
+.ideas li::before{content:counter(i,decimal-leading-zero);font-family:'Lora',serif;font-weight:600;color:var(--coral)}
+.check{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
+.check li{display:flex;gap:12px;align-items:flex-start;cursor:pointer;user-select:none;font-size:15.5px;line-height:1.45}
+.check li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:6px;border:2px solid var(--coral)}
+.check li b{display:block;color:var(--ink)}
+.check li span{color:var(--ink2)}
+.check li.done{opacity:.55}
+.check li.done b{text-decoration:line-through}
+.check li.done::before{background:var(--coral);box-shadow:inset 0 0 0 3px var(--card)}
+.flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:28px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.step b{font-family:'Lora',serif;font-size:20px;color:var(--coral)}
+.step p{margin:6px 0 0;color:var(--ink2);font-size:15px}
+.final{margin-top:72px;padding:40px 32px;border-radius:28px;background:linear-gradient(140deg,var(--coral-soft),var(--bg2));border:1px solid var(--line)}
+.final h2{font-size:clamp(28px,4.4vw,40px)}
+.final p{max-width:60ch;color:var(--ink2)}
+.small{font-size:14px;color:var(--ink2)}
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;padding-top:40px}.sun{width:220px}
+  .g2,.g3,.flow{grid-template-columns:1fr}
+}
+.why{display:grid;grid-template-columns:300px 1fr;gap:24px;margin-top:28px;align-items:start}
+.why img{width:100%;border-radius:22px;box-shadow:var(--shadow);display:block}
+.steps{display:grid;gap:16px;min-width:0}
+.covers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:28px}
+.cov{aspect-ratio:9/16;max-width:100%;border-radius:20px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;box-shadow:var(--shadow)}
+.cov span{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(15px,2.2vw,20px);line-height:1.15;text-transform:uppercase}
+.cov b{font-family:'Lora',serif;font-size:clamp(28px,4vw,40px);align-self:flex-end}
+.c1{background:linear-gradient(160deg,#E0452B,#8E1E10)}.c2{background:linear-gradient(160deg,#E85D8C,#93264F)}.c3{background:linear-gradient(160deg,#2F8F83,#1C5750)}.c4{background:linear-gradient(160deg,#3D6FD8,#1D3A85)}
+@media (max-width:760px){.why{grid-template-columns:1fr}.why img{max-width:300px}.covers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.bar{height:18px;border-radius:999px;background:var(--bg2);overflow:hidden}
+.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--rose),var(--coral))}
+.barlabels{display:flex;justify-content:space-between;margin-top:10px;font-size:15px;color:var(--ink2)}
+.barlabels b{color:var(--ink);font-family:'Lora',serif;font-size:22px}
+.check[data-static] li{cursor:default}
+.flow .step b{font-size:18px}
+</style>
+</head><body>
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="label">разбор · лично для тебя</div>
+      <h1>Блог можно начать <em>без лица</em> и без кучи времени</h1>
+      <p>Ты уже умеешь делать видео, которые смотрят. Вот как превратить это в блог, который растёт, — совмещая с 11 классом и не перебарывая страхи силой.</p>
+    </div>
+    <div class="sun" aria-hidden="true"></div>
+  </header>
+
+  <nav aria-label="Разделы">
+    <a href="#now">Где ты сейчас</a><a href="#good">Что уже есть</a><a href="#why">Почему нет подписчиков</a><a href="#theme">О чём вести</a><a href="#formats">Форматы без лица</a><a href="#fear">Про страх</a><a href="#time">Время</a><a href="#profile">Профиль</a><a href="#plan">План на 2 недели</a>
+  </nav>
+
+  <section id="now">
+    <div class="label">где ты сейчас</div>
+    <h2>Видео уже набирали — <em>это не ноль</em></h2>
+    <div class="grid g3">
+      <div class="card hot"><div class="big">15 тыс.</div><h3>просмотров на лучшем видео</h3><p>И почти 2 тысячи лайков. Для видео без лица и без стратегии это очень хорошо.</p></div>
+      <div class="card"><div class="big">200–500</div><h3>лайков почти на каждом</h3><p>Не один случайный залёт, а стабильный результат. Ты чувствуешь, что нравится людям.</p></div>
+      <div class="card"><div class="big">220</div><h3>подписчиков максимум</h3><p>Лайкали много, а подписывались мало. Ниже — почему так и как это исправить.</p></div>
+    </div>
+  </section>
+
+  <section id="good">
+    <div class="label">что у тебя уже есть</div>
+    <h2>Больше, чем <em>кажется</em></h2>
+    <div class="grid g2">
+      <div class="card"><div class="ic" data-i="eye"></div><h3>Чувство эстетики</h3><p>В галерее уже много красивых фото. Это готовый материал — не нужно ничего специально снимать на старте.</p></div>
+      <div class="card"><div class="ic" data-i="repeat"></div><h3>Опыт видео, которые смотрят</h3><p>200–500 лайков стабильно — значит, ты уже понимаешь, что цепляет.</p></div>
+      <div class="card"><div class="ic" data-i="chat"></div><h3>Опыт в блогерской команде</h3><p>Ты работала менеджером у блогера и видела, как всё устроено изнутри. Это плюс, даже если кажется, что «ничего не вышло».</p></div>
+      <div class="card"><div class="ic" data-i="heart"></div><h3>Желание и честность</h3><p>Ты прямо говоришь, чего боишься и чего не знаешь. С этого и начинают все, у кого потом получается.</p></div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="label">почему лайки есть, а подписчиков нет</div>
+    <h2>Людям нравилось видео, <em>но не было понятно, кто ты</em></h2>
+    <div class="grid g2">
+      <div class="card hot"><div class="ic" data-i="box"></div><h3>Рандомные темы</h3><p>Каждое видео про своё. Человек лайкнул и ушёл — подписываться не на что, ведь непонятно, что будет дальше.</p></div>
+      <div class="card"><div class="ic" data-i="smile"></div><h3>Нет «тебя»</h3><p>Лицо не обязательно. Но нужен голос, мысль, твой взгляд — то, за чем захочется вернуться.</p></div>
+      <div class="card"><div class="ic" data-i="pin"></div><h3>Чужие картинки</h3><p>Фото с Пинтереста — не твои. Такие видео сложнее отличить от тысяч похожих. Свои фото из галереи — сильнее и безопаснее.</p></div>
+      <div class="card"><div class="ic" data-i="cal"></div><h3>Нет ритма</h3><p>Выкладывала, потом пропала. Алгоритм не успевает понять, кому тебя показывать.</p></div>
+    </div>
+  </section>
+
+  <section id="theme">
+    <div class="label">о чём вести</div>
+    <h2>Одна тема, <em>которая уже есть в твоей жизни</em></h2>
+    <p class="lead">Лучшая тема — та, для которой не нужно искать время отдельно. У тебя сейчас это 11 класс.</p>
+    <div class="grid g3">
+      <div class="card hot"><div class="label">вариант 1 · советуем</div><h3>«11 класс без паники»</h3><p>Подготовка к экзаменам, учёба, мотивация, эстетика стола. Миллионы школьников в той же ситуации — и они ищут таких, как ты.</p></div>
+      <div class="card"><div class="label">вариант 2</div><h3>«Эстетика обычных дней»</h3><p>Красивые моменты из жизни + короткая мысль текстом. Твоё чувство эстетики, но с тобой внутри.</p></div>
+      <div class="card"><div class="label">вариант 3</div><h3>«Мысли вслух»</h3><p>Красивые кадры + текст или голос за кадром: то, о чём думаешь в 11 классе. Узнаваемо и честно.</p></div>
+    </div>
+    <div class="note">Первый вариант удобнее всего: контент появляется сам, пока ты готовишься к экзаменам. Учёба и блог не конкурируют за время — одно становится материалом для другого.</div>
+  </section>
+
+  <section id="formats">
+    <div class="label">форматы без лица</div>
+    <h2>Можно расти, <em>не показывая лицо</em></h2>
+    <div class="grid g2">
+      <div class="card ideas"><div class="label">study with me</div><h3>Учусь — и снимаю</h3><ol>
+        <li>Таймлапс: 2 часа подготовки за 15 секунд</li>
+        <li>Мой стол перед экзаменом</li>
+        <li>Как я учу билеты, когда ничего не хочется</li>
+      </ol></div>
+      <div class="card ideas"><div class="label">эстетика + текст</div><h3>Фото из галереи + мысль</h3><ol>
+        <li>«Вещи, которые помогают мне не сойти с ума в 11 классе»</li>
+        <li>«Чего я не знала в начале года»</li>
+        <li>«Мой день — но только красивые моменты»</li>
+      </ol></div>
+      <div class="card ideas"><div class="label">голос за кадром</div><h3>Говорю, но не показываюсь</h3><ol>
+        <li>Как я планирую неделю подготовки</li>
+        <li>Что я делаю, когда выгораю от учёбы</li>
+        <li>Честно: сколько я реально учусь в день</li>
+      </ol></div>
+      <div class="card ideas"><div class="label">руки и процесс</div><h3>Только руки в кадре</h3><ol>
+        <li>Делаю конспект, который хочется читать</li>
+        <li>Собираю сумку на пробник</li>
+        <li>Готовлю завтрак перед экзаменом</li>
+      </ol></div>
+    </div>
+    <div class="note">Главное отличие от твоих старых видео: каждое — про одну тему и с твоей мыслью. Тогда человек понимает, на что подписывается.</div>
+  </section>
+
+  <section id="fear">
+    <div class="label">про страх осуждения</div>
+    <h2>Страх не нужно <em>перебарывать силой</em></h2>
+    <p class="lead">Ты не обязана сразу снимать с лицом. Начни с того, что не страшно, — уверенность придёт сама, когда появится опыт.</p>
+    <div class="grid g3">
+      <div class="card"><div class="ic" data-i="eye"></div><h3>Сначала без лица</h3><p>Руки, голос, эстетика. Когда привыкнешь выкладывать — сама решишь, когда показаться.</p></div>
+      <div class="card"><div class="ic" data-i="pin"></div><h3>Береги личное</h3><p>Не показывай номер школы, адрес и то, по чему тебя легко найти. Так спокойнее и безопаснее.</p></div>
+      <div class="card"><div class="ic" data-i="heart"></div><h3>Чужие люди — не судьи</h3><p>Кто тебя не знает, пролистает за секунду. А те, кому откликнется, останутся. Комментарии можно фильтровать и удалять.</p></div>
+    </div>
+  </section>
+
+  <section id="time">
+    <div class="label">как совмещать с учёбой</div>
+    <h2>Блог — <em>не больше часа-двух в неделю</em></h2>
+    <div class="flow">
+      <div class="step"><b>Выходные</b><p>Снять или собрать 2–3 видео за один раз</p></div>
+      <div class="step"><b>Будни</b><p>Только выложить — 5 минут</p></div>
+      <div class="step"><b>Учёба</b><p>Остаётся главной. Блог подстраивается под неё</p></div>
+    </div>
+    <div class="note">2–3 видео в неделю достаточно. Перед важными экзаменами можно ставить блог на паузу — и честно сказать об этом подписчикам. Это тоже контент.</div>
+  </section>
+
+  <section id="profile">
+    <div class="label">профиль</div>
+    <h2>Шапка, которая <em>объясняет, зачем подписываться</em></h2>
+    <div class="grid g2">
+      <div class="card"><div class="label">вариант 1</div><p class="pin">[Имя] | 11 класс без паники 📚
+Учусь, готовлюсь к экзаменам и показываю, как не сойти с ума
+Новое видео каждую неделю ✨</p></div>
+      <div class="card"><div class="label">вариант 2</div><p class="pin">Эстетика обычных дней 🤍
+Учёба, мысли и красивые моменты
+11 класс · делюсь, как есть</p></div>
+    </div>
+  </section>
+
+  <section id="plan">
+    <div class="label">что делать</div>
+    <h2>Две недели <em>по шагам</em></h2>
+    <p class="lead">Нажимай на пункт, когда сделала. Ритм: 2–3 видео в неделю, снимаешь на выходных.</p>
+    <div class="grid g2">
+      <div class="card"><div class="label">неделя 1 · старт</div><ul class="check">
+        <li><div><b>Выбрать тему из трёх вариантов</b><span>одну, без «и того, и этого»</span></div></li>
+        <li><div><b>Новая шапка</b><span>по варианту выше</span></div></li>
+        <li><div><b>Отобрать 10–15 своих фото из галереи</b><span>это запас на первые видео</span></div></li>
+        <li><div><b>Видео «Мой стол перед экзаменом»</b><span>только руки и стол</span></div></li>
+        <li><div><b>Фото + мысль: «Чего я не знала в начале года»</b><span>текстом, без лица</span></div></li>
+      </ul></div>
+      <div class="card"><div class="label">неделя 2 · ритм</div><ul class="check">
+        <li><div><b>Таймлапс подготовки</b><span>поставила телефон — и учишься</span></div></li>
+        <li><div><b>Голос за кадром: как я планирую неделю</b><span>первый раз со своим голосом</span></div></li>
+        <li><div><b>Повторить то, что зашло лучше</b><span>в новой ситуации</span></div></li>
+        <li><div><b>Посмотреть итоги</b><span>какие видео принесли подписчиков, а не только лайки</span></div></li>
+      </ul></div>
+    </div>
+  </section>
+
+  <div class="final">
+    <div class="label">напоследок</div>
+    <h2>Не нужно быть смелой сразу — <em>нужно просто начать</em></h2>
+    <p>У тебя уже есть чувство эстетики, опыт видео, которые смотрят, и тема, которая живёт рядом с тобой каждый день. Начни без лица, с одной темы и 2–3 видео в неделю. Остальное придёт с опытом.</p>
+  </div>
+</div>
+
+<script>
+const I={
+send:'<path d="M42 6L4 21l14 5 4 14 7-10 10 8z"/><path d="M18 26l24-20"/>',
+box:'<path d="M6 15l18-9 18 9v18l-18 9-18-9z"/><path d="M6 15l18 9 18-9M24 24v18"/>',
+cal:'<rect x="6" y="10" width="36" height="31" rx="4"/><line x1="6" y1="19" x2="42" y2="19"/><line x1="16" y1="5" x2="16" y2="13"/><line x1="32" y1="5" x2="32" y2="13"/>',
+smile:'<circle cx="24" cy="24" r="18"/><path d="M16 28q8 7 16 0"/><circle cx="18" cy="19" r="1.5"/><circle cx="30" cy="19" r="1.5"/>',
+camera:'<rect x="5" y="14" width="38" height="26" rx="5"/><circle cx="24" cy="27" r="7"/><path d="M17 14l3-5h8l3 5"/>',
+sun:'<circle cx="24" cy="24" r="8"/><path d="M24 4v6M24 38v6M4 24h6M38 24h6M10 10l4 4M34 34l4 4M38 10l-4 4M14 34l-4 4"/>',
+eye:'<path d="M3 24c7-10 14-14 21-14s14 4 21 14c-7 10-14 14-21 14S10 34 3 24z"/><circle cx="24" cy="24" r="6"/>',
+repeat:'<path d="M8 20a14 14 0 0 1 26-6l4-4v11H27l5-4a10 10 0 0 0-19 4"/><path d="M40 28a14 14 0 0 1-26 6l-4 4V27h11l-5 4a10 10 0 0 0 19-4"/>',
+chat:'<path d="M9 9h30a4 4 0 0 1 4 4v16a4 4 0 0 1-4 4H22l-9 7v-7H9a4 4 0 0 1-4-4V13a4 4 0 0 1 4-4z"/>',
+pen:'<path d="M31 7l10 10-23 23H8V30z"/><line x1="26" y1="12" x2="36" y2="22"/>',
+chart:'<path d="M7 41V7"/><path d="M7 41h34"/><path d="M13 33l9-10 7 6 12-14"/>',
+heart:'<path d="M24 40C10 30 6 22 10 15c4-6 11-5 14 1 3-6 10-7 14-1 4 7 0 15-14 25z"/>',
+pin:'<path d="M24 43s14-13 14-24a14 14 0 0 0-28 0c0 11 14 24 14 24z"/><circle cx="24" cy="19" r="5"/>'};
+document.querySelectorAll('.ic[data-i]').forEach(e=>{e.innerHTML='<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">'+I[e.dataset.i]+'</svg>'});
+document.querySelectorAll('#plan .check li').forEach(li=>li.addEventListener('click',()=>li.classList.toggle('done')));
+</script>
+</body></html>
